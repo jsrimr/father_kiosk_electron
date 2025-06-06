@@ -337,5 +337,90 @@
     "$mbti지표": {
       "결과": "あなたのAI-MBTIは ${mbti지표} です。~"
     }
+  },
+  "베트남어": {
+    "INTJ": {
+      "성격": "Nhà phân tích, nhà chiến lược thận trọng\nNhà chiến lược có trí tưởng tượng phong phú, lập kế hoạch cho mọi việc.\nThích tư duy chiến lược.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng thông minh và độc lập.\nCoi trọng mối quan hệ tôn trọng và hỗ trợ sự phát triển của nhau.\nCó thể không giỏi thể hiện cảm xúc, nhưng yêu thương chân thành và sâu sắc.",
+      "유명인": "Elon Musk, Michelle Obama, Christopher Nolan"
+    },
+    "INTP": {
+      "성격": "Nhà phân tích, nhà tư tưởng logic\nNhà phát minh sáng tạo với khao khát tri thức vô tận.\nCó trí tò mò cao và thích tư duy phân tích.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng có trí tò mò phong phú và khiếu hài hước.\nCoi trọng mối quan hệ tôn trọng tự do và tính độc lập cá nhân.\nCó thể không giỏi thể hiện cảm xúc, nhưng thật sự tận tâm.",
+      "유명인": "Albert Einstein, Marie Curie, Bill Gates"
+    },
+    "ENTJ": {
+      "성격": "Nhà phân tích, nhà lãnh đạo táo bạo\nNhà lãnh đạo táo bạo, giàu trí tưởng tượng và ý chí mạnh mẽ, luôn tìm ra cách giải quyết vấn đề.\nNhà lãnh đạo có sức hút và hướng tới mục tiêu.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng có năng lực và tự tin.\nCoi trọng mối quan hệ cùng nhau hướng tới mục tiêu và tạo động lực cho nhau.\nThể hiện cảm xúc một cách thẳng thắn và kiên quyết.",
+      "유명인": "Steve Jobs, Franklin D. Roosevelt, Margaret Thatcher"
+    },
+    "ENTP": {
+      "성격": "Nhà phân tích, nhà tranh luận thích những cuộc tranh luận nóng bỏng\nNhà tư tưởng thông minh và tò mò, thích thử thách trí tuệ.\nCó khả năng giải quyết vấn đề sáng tạo và đầy thách thức.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng sáng tạo và có khiếu hài hước xuất sắc.\nCoi trọng mối quan hệ cùng nhau trải nghiệm điều mới và tạo kích thích trí tuệ.\nThể hiện cảm xúc một cách dí dỏm và khéo léo.",
+      "유명인": "Thomas Edison, Leonardo da Vinci, Tom Hanks"
+    },
+    "INFJ": {
+      "성격": "Nhà ngoại giao, người ủng hộ thiện chí\nNhà lý tưởng có tính cách bình tĩnh và bí ẩn, truyền cảm hứng cho người khác.\nLý tưởng, có óc nhìn xa và tận tâm giúp đỡ người khác.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng chia sẻ nội tâm sâu sắc và theo đuổi mối quan hệ chân thành.\nCoi trọng mối quan hệ tôn trọng và ủng hộ giá trị quan và lý tưởng của nhau.\nThể hiện cảm xúc một cách ấm áp và tinh tế.",
+      "유명인": "Martin Luther King Jr., Mother Teresa, Nelson Mandela"
+    },
+    "INFP": {
+      "성격": "Nhà ngoại giao, nhà hòa giải đầy nhiệt huyết\nNhà vị tha nhẹ nhàng và tốt bụng, luôn sẵn sàng làm điều tốt.\nSáng tạo, lý tưởng và coi trọng giá trị quan của bản thân.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng ấm áp và hiểu biết.\nCoi trọng mối quan hệ chia sẻ và đồng cảm với cảm xúc của nhau.\nThể hiện cảm xúc một cách chân thành và cảm tính.",
+      "유명인": "Johnny Depp, William Shakespeare, Vincent van Gogh"
+    },
+    "ENFJ": {
+      "성격": "Nhà ngoại giao, nhà hoạt động xã hội chính nghĩa\nNhà lãnh đạo có sức hút, cuốn hút và truyền cảm hứng cho khán giả.\nCó khả năng giao tiếp tốt, có sức hút và giỏi truyền cảm hứng cho người khác.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng giao tiếp tốt và chu đáo.\nCoi trọng việc cùng nhau đóng góp cho xã hội và tạo ra những mối quan hệ có ý nghĩa.\nThể hiện cảm xúc một cách nhiệt tình và tích cực.",
+      "유명인": "Oprah Winfrey, Barack Obama, Jennifer Lawrence"
+    },
+    "ENFP": {
+      "성격": "Nhà ngoại giao, nhà hoạt động sống động\nTính cách nhiệt tình và sáng tạo với cái nhìn tích cực về cuộc sống.\nHoạt bát, sáng tạo và thích khám phá những khả năng mới.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng sáng tạo và nhiệt tình.\nCoi trọng mối quan hệ cùng nhau có những khoảng thời gian vui vẻ và khám phá những khả năng mới.\nThể hiện cảm xúc một cách thẳng thắn và tích cực.",
+      "유명인": "Robert Downey Jr., Tom Hanks, Jim Carrey"
+    },
+    "ISTJ": {
+      "성격": "Nhà quản lý, nhà logic chính trực\nNhà hiện thực đáng tin cậy, coi trọng sự thật.\nCó trách nhiệm cao, thực tế và thích hệ thống.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng chân thành và có trách nhiệm.\nCoi trọng mối quan hệ ổn định và có thể dự đoán được.\nThể hiện cảm xúc một cách thận trọng và nghiêm túc.",
+      "유명인": "Angela Merkel, Warren Buffett, Denzel Washington"
+    },
+    "ISFJ": {
+      "성격": "Nhà quản lý, người bảo vệ dũng cảm\nPhong cách tận tâm và ấm áp, sẵn sàng bảo vệ những người xung quanh.\nTận tâm, ấm áp và chu đáo với người khác.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng ấm áp và tận tâm.\nCoi trọng mối quan hệ ổn định, chăm sóc và quan tâm lẫn nhau.\nThể hiện cảm xúc một cách ấm áp và tinh tế.",
+      "유명인": "Beyonce, Elvis Presley, Anne Hathaway"
+    },
+    "ESTJ": {
+      "성격": "Nhà quản lý nghiêm khắc\nNhà điều hành có khả năng xuất sắc trong việc quản lý mọi thứ và con người.\nThực tế, có tổ chức và có khả năng lãnh đạo xuất sắc.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng có năng lực và trách nhiệm.\nCoi trọng việc cùng nhau đạt được mục tiêu và xây dựng gia đình ổn định.\nThể hiện cảm xúc một cách thẳng thắn và kiên quyết.",
+      "유명인": "Franklin D. Roosevelt, John D. Rockefeller, James Monroe"
+    },
+    "ESFJ": {
+      "성격": "Nhà quản lý, nhà ngoại giao giao tiếp tốt\nCó tính cách chu đáo, luôn sẵn sàng giúp đỡ người khác, được nhiều người yêu mến và giao tiếp tốt.\nGiao tiếp tốt, hợp tác và nhiệt tình giúp đỡ người khác.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng giao tiếp tốt và chu đáo.\nCoi trọng việc xây dựng gia đình hòa thuận và ổn định.\nThể hiện cảm xúc một cách ấm áp và tích cực.",
+      "유명인": "Taylor Swift, Bill Clinton, Jennifer Garner"
+    },
+    "ISTP": {
+      "성격": "Nhà thám hiểm, người đa tài\nTính cách táo bạo nhưng thực tế, sử dụng thành thạo mọi loại công cụ, khéo tay.\nCó khả năng giải quyết vấn đề thực tế.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng độc lập và tự do.\nCoi trọng mối quan hệ cùng nhau trải nghiệm điều mới và phiêu lưu.\nThể hiện cảm xúc một cách điềm tĩnh và kiềm chế.",
+      "유명인": "Michael Jordan, Clint Eastwood, Tom Cruise"
+    },
+    "ISFP": {
+      "성격": "Nhà thám hiểm, nghệ sĩ tò mò\nLinh hoạt và quyến rũ, luôn tìm kiếm trải nghiệm mới.\nCó tài năng nghệ thuật xuất sắc và là linh hồn tự do.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng ấm áp và cảm tính.\nCoi trọng mối quan hệ chia sẻ cảm xúc và cùng nhau thưởng thức trải nghiệm nghệ thuật.\nThể hiện cảm xúc một cách tinh tế và cảm tính.",
+      "유명인": "Michael Jackson, David Beckham, Brad Pitt"
+    },
+    "ESTP": {
+      "성격": "Nhà thám hiểm, doanh nhân thích mạo hiểm\nNăng lượng tự phát và nhiệt tình tràn trề, làm vui lòng những người xung quanh.\nTích cực, thực tế và có khả năng thích ứng xuất sắc.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng năng động và thú vị.\nCoi trọng mối quan hệ cùng nhau có những khoảng thời gian vui vẻ và trải nghiệm điều mới.\nThể hiện cảm xúc một cách thẳng thắn và khéo léo.",
+      "유명인": "Ernest Hemingway, Madonna, Jack Nicholson"
+    },
+    "ESFP": {
+      "성격": "Nhà thám hiểm, nghệ sĩ tự do\nDoanh nhân thông minh, tràn đầy năng lượng và quan sát tốt, có tính cách sẵn sàng mạo hiểm.\nGiao tiếp tốt, tích cực và thích mang lại niềm vui cho những người xung quanh.",
+      "배우자": "Các loại vợ/chồng được khuyến nghị như sau:\nThích vợ/chồng giao tiếp tốt và tích cực.\nCoi trọng mối quan hệ cùng nhau có những khoảng thời gian vui vẻ và tận hưởng cuộc sống.\nThể hiện cảm xúc một cách thẳng thắn và nhiệt tình.",
+      "유명인": "Marilyn Monroe, Elvis Presley, Elton John"
+    },
+    "$mbti지표": {
+      "결과": "AI-MBTI của bạn là ${mbti지표}~"
+    }
   }
 }

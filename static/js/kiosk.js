@@ -398,7 +398,7 @@ function getMBTIInfo(type) {
         'en': '영어',
         'ja': '일본어',
         'zh': '중국어',
-        'vi': '중국어' // 베트남어 데이터가 없어서 중국어로 대체
+        'vi': '베트남어' // 베트남어 데이터 추가됨
     };
     
     const langKey = languageMap[currentLanguage] || '한국어';
