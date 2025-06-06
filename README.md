@@ -40,10 +40,13 @@ An interactive kiosk application that combines MBTI personality analysis with AI
 
 ### 설치 방법
 
-1. **저장소 클론**
+1. **저장소 클론 (submodule 포함)**
 ```bash
-git clone <repository-url>
+git clone --recurse-submodules <repository-url>
 cd father-kiosk-electron
+
+# 이미 클론한 경우 submodule 초기화
+git submodule update --init --recursive
 ```
 
 2. **Node.js 의존성 설치**
@@ -71,13 +74,16 @@ pip install antialiased_cnns lpips face_recognition ffmpy av gradio opencv-pytho
 
 4. **face_reaging 모델 파일 준비**
 ```bash
-# face_reaging 디렉토리 생성 (없는 경우)
-mkdir -p face_reaging/assets
+# face_reaging는 git submodule로 관리됩니다
+# 메인 모델 파일은 용량이 크므로 별도 다운로드가 필요합니다
 
-# 필요한 모델 파일들:
-# - face_reaging/best_unet_model.pth (메인 모델)
-# - face_reaging/assets/mask1024.jpg (마스크 파일)
-# - face_reaging/assets/mask512.jpg (마스크 파일)
+# 필요한 모델 파일:
+# - face_reaging/best_unet_model.pth (119MB, 별도 다운로드 필요)
+# - face_reaging/assets/mask1024.jpg (submodule에 포함)
+# - face_reaging/assets/mask512.jpg (submodule에 포함)
+
+# 모델 파일 다운로드 (별도 제공)
+# 또는 프로젝트 담당자에게 best_unet_model.pth 파일 요청
 ```
 
 5. **애플리케이션 실행**
@@ -120,12 +126,14 @@ father-kiosk-electron/
 ├── index.html             # 기본 진입점
 ├── kiosk.html            # 키오스크 메인 화면
 ├── package.json          # 프로젝트 설정
-├── face_reaging/         # 얼굴 노화 예측 모델
-│   ├── best_unet_model.pth # 메인 모델 파일
+├── face_reaging/         # 얼굴 노화 예측 모델 (git submodule)
+│   ├── best_unet_model.pth # 메인 모델 파일 (별도 다운로드)
 │   ├── assets/
 │   │   ├── mask1024.jpg  # 마스크 파일
 │   │   └── mask512.jpg   # 마스크 파일
-│   └── predict.py        # Python 예측 스크립트
+│   ├── utils/            # 유틸리티 함수들
+│   ├── model/            # 모델 아키텍처
+│   └── scripts/          # 실행 스크립트들
 ├── static/
 │   ├── css/
 │   │   └── kiosk.css     # 스타일시트
@@ -246,6 +254,30 @@ npm run build
 ### 키오스크 모드 실행
 ```bash
 npm run kiosk
+```
+
+## 📦 Submodule 관리
+
+이 프로젝트는 `face_reaging`을 git submodule로 사용합니다.
+
+### Submodule 업데이트
+```bash
+# submodule 최신 버전으로 업데이트
+git submodule update --remote face_reaging
+
+# 변경사항 커밋
+git add face_reaging
+git commit -m "Update face_reaging submodule"
+```
+
+### Submodule 초기화 (기존 클론에서)
+```bash
+git submodule update --init --recursive
+```
+
+### Submodule 상태 확인
+```bash
+git submodule status
 ```
 
 ## 🔧 문제 해결
