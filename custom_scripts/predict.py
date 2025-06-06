@@ -95,8 +95,19 @@ def predict_aging(image_path, source_age=25, target_age=45):
         
         return f"data:image/png;base64,{img_str}"
     
+    except ValueError as e:
+        # 얼굴 감지 실패 등의 알려진 에러
+        if "No face detected" in str(e):
+            print(f"Face detection failed: {str(e)}", file=sys.stderr)
+            print("Tips for better face detection:", file=sys.stderr)
+            print("- Ensure good lighting", file=sys.stderr)
+            print("- Face should be clearly visible and not partially covered", file=sys.stderr)
+            print("- Try a different image angle", file=sys.stderr)
+        else:
+            print(f"Error in predict_aging: {str(e)}", file=sys.stderr)
+        sys.exit(1)
     except Exception as e:
-        print(f"Error in predict_aging: {str(e)}", file=sys.stderr)
+        print(f"Unexpected error in predict_aging: {str(e)}", file=sys.stderr)
         import traceback
         traceback.print_exc(file=sys.stderr)
         sys.exit(1)

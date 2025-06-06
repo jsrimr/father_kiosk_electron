@@ -80,7 +80,27 @@ def process_image(your_model, image, video, source_age, target_age=0,
         new_height = height if height % 2 == 0 else height - 1
         image.resize((new_width, new_height, depth))
 
-    fl = face_recognition.face_locations(image)[0]
+    # 얼굴 감지 시도 (여러 방법으로)
+    face_locations = face_recognition.face_locations(image, model="hog")
+    
+    # HOG 방법으로 실패하면 CNN 방법도 시도
+    if len(face_locations) == 0:
+        print("HOG face detection failed, trying CNN method...", file=sys.stderr)
+        face_locations = face_recognition.face_locations(image, model="cnn")
+    
+    # 두 방법 모두 실패하면 에러 발생
+    if len(face_locations) == 0:
+        raise ValueError("No face detected in the image. Please ensure the image contains a clear, visible face.")
+    
+    # 여러 얼굴이 감지된 경우 가장 큰 얼굴 선택
+    if len(face_locations) > 1:
+        print(f"Multiple faces detected ({len(face_locations)}), using the largest face", file=sys.stderr)
+        # 얼굴 크기 계산 (bottom - top) * (right - left)
+        face_sizes = [(loc[2] - loc[0]) * (loc[1] - loc[3]) for loc in face_locations]
+        largest_face_idx = face_sizes.index(max(face_sizes))
+        fl = face_locations[largest_face_idx]
+    else:
+        fl = face_locations[0]
 
     # calculate margins
     margin_y_t = int((fl[2] - fl[0]) * .63 * .85)  # larger as the forehead is often cut off
