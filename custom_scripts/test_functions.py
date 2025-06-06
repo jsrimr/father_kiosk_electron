@@ -14,8 +14,8 @@ from PIL import Image
 # 절대경로로 마스크 파일 로드
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir)
-mask1024_path = os.path.join(project_root, 'assets', 'mask1024.jpg')
-mask512_path = os.path.join(project_root, 'assets', 'mask512.jpg')
+mask1024_path = os.path.join(project_root, 'face_reaging', 'assets', 'mask1024.jpg')
+mask512_path = os.path.join(project_root, 'face_reaging', 'assets', 'mask512.jpg')
 
 mask_file = torch.from_numpy(np.array(Image.open(mask1024_path).convert('L'))) / 255
 small_mask_file = torch.from_numpy(np.array(Image.open(mask512_path).convert('L'))) / 255

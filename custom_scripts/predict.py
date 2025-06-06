@@ -11,8 +11,13 @@ project_root = os.path.dirname(os.path.dirname(__file__))
 face_reaging_path = os.path.join(project_root, 'face_reaging')
 sys.path.append(face_reaging_path)
 
+# test_functions.py를 직접 import
+import importlib.util
+spec = importlib.util.spec_from_file_location("test_functions", os.path.join(os.path.dirname(__file__), "test_functions.py"))
+test_functions = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(test_functions)
+
 from model.models import UNet
-from custom_scripts.test_functions import process_image
 
 # 모델 경로 설정
 model_path = os.path.join(face_reaging_path, 'best_unet_model.pth')
@@ -70,7 +75,7 @@ def predict_aging(image_path, source_age=25, target_age=45):
         
         # 예측 수행 (process_image 함수 사용)
         print("Starting face processing...", file=sys.stderr)
-        aged_image = process_image(
+        aged_image = test_functions.process_image(
             model, 
             image, 
             video=False, 
