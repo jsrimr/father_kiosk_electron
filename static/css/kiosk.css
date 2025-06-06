@@ -1,0 +1,575 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* 시작화면 스타일 */
+.start-screen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    flex-direction: column;
+    text-align: center;
+    color: white;
+}
+
+.start-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.start-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+.start-btn {
+    padding: 20px 60px;
+    font-size: 2rem;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+}
+
+.start-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+}
+
+/* 언어선택화면 스타일 */
+.language-screen {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    flex-direction: column;
+}
+
+.language-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.flags-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flag-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.flag-item:hover {
+    transform: scale(1.1);
+}
+
+.flag {
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.flag-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 결제화면 스타일 */
+.payment-screen {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    flex-direction: column;
+}
+
+.payment-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+}
+
+.payment-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.price {
+    font-size: 3rem;
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.payment-btn {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    background: #4ecdc4;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px;
+}
+
+.payment-btn:hover {
+    background: #45b7b8;
+}
+
+/* 메인화면 스타일 */
+.main-screen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.main-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    max-width: 1000px;
+    width: 100%;
+}
+
+.camera-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.camera-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+#video {
+    width: 640px;
+    height: 480px;
+    object-fit: cover;
+}
+
+.face-guide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.guide-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 400px;
+    margin-left: -200px;
+    margin-top: -200px;
+    border: 3px solid #4CAF50;
+    border-radius: 20px;
+    box-shadow: 
+        0 0 0 9999px rgba(0,0,0,0.3),
+        inset 0 0 20px rgba(76, 175, 80, 0.3);
+    animation: guideFramePulse 2s ease-in-out infinite;
+}
+
+@keyframes guideFramePulse {
+    0%, 100% {
+        border-color: #4CAF50;
+        box-shadow: 
+            0 0 0 9999px rgba(0,0,0,0.3),
+            inset 0 0 20px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        border-color: #45a049;
+        box-shadow: 
+            0 0 0 9999px rgba(0,0,0,0.4),
+            inset 0 0 30px rgba(76, 175, 80, 0.5);
+    }
+}
+
+.guide-text {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    background-color: rgba(76, 175, 80, 0.8);
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.controls {
+    text-align: center;
+    margin: 2rem 0 3rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 20px 20px;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background: #4ecdc4;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #45b7b8;
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 결과화면 스타일 */
+#resultScreen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    animation: fadeIn 0.5s ease-in-out;
+    -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+    scroll-behavior: smooth;
+}
+
+#resultScreen.active {
+    display: block;
+}
+
+.result-screen {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding: 0;
+}
+
+.result-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    width: calc(100% - 4rem);
+    text-align: center;
+    margin: 2rem auto;
+    min-height: calc(100vh - 4rem);
+    box-sizing: border-box;
+}
+
+.result-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.result-content {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.mbti-result, .face-result {
+    flex: 1;
+    min-width: 300px;
+}
+
+.mbti-result {
+    color: #333;
+}
+
+.result-section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.mbti-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}
+
+.mbti-type {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.mbti-description {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.mbti-details {
+    margin-top: 2rem;
+}
+
+.mbti-detail-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mbti-detail-section h4 {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.mbti-detail-section p {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.face-images {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.face-image {
+    text-align: center;
+}
+
+.face-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    border: 3px solid #ddd;
+    object-fit: cover;
+}
+
+.face-image h3 {
+    margin-top: 1rem;
+    color: #333;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #667eea;
+    font-size: 1.5rem;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+canvas {
+    display: none;
+}
+
+/* 만족도 조사 스타일 */
+.satisfaction-survey {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0 3rem 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.survey-title {
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.survey-section {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.survey-section h4 {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+}
+
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.star {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.star:hover,
+.star.active {
+    color: #ffd700;
+    transform: scale(1.1);
+}
+
+.star.active {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.rating-text {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    min-height: 1.5rem;
+}
+
+.rating-feedback {
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* 반응형 디자인 - 작은 화면에서 스크롤 최적화 */
+@media (max-height: 900px) {
+    .result-screen {
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 1rem;
+    }
+    
+    .result-container {
+        padding: 2rem;
+        margin: 1rem auto;
+    }
+    
+    .satisfaction-survey {
+        margin: 1.5rem 0 2rem 0;
+        padding: 1.5rem;
+    }
+    
+    .controls {
+        margin: 1.5rem 0 2rem 0;
+    }
+}
+
+@media (max-height: 700px) {
+    .result-screen {
+        padding: 0.5rem;
+    }
+    
+    .result-container {
+        padding: 1.5rem;
+        margin: 0.5rem auto;
+    }
+    
+    .result-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .satisfaction-survey {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .survey-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .controls {
+        margin: 1rem 0;
+    }
+} 
