@@ -133,7 +133,10 @@ father-kiosk-electron/
 │   │   └── mask512.jpg   # 마스크 파일
 │   ├── utils/            # 유틸리티 함수들
 │   ├── model/            # 모델 아키텍처
-│   └── scripts/          # 실행 스크립트들
+│   └── scripts/          # 원본 스크립트들
+├── custom_scripts/       # 프로젝트별 커스텀 스크립트
+│   ├── predict.py        # 커스텀 예측 스크립트
+│   └── test_functions.py # 수정된 테스트 함수들
 ├── static/
 │   ├── css/
 │   │   └── kiosk.css     # 스타일시트

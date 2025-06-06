@@ -54,13 +54,13 @@ ipcMain.handle('predict-age', async (event, imagePath, sourceAge = 25, targetAge
       mode: 'text',
       pythonPath: '/Users/jungsublim/miniconda3/envs/face/bin/python',
       pythonOptions: ['-u'],
-      scriptPath: path.join(__dirname, 'face_reaging/'),
+      scriptPath: __dirname,
       args: [imagePath, sourceAge.toString(), targetAge.toString()]
     };
 
     console.log('Python execution options:', options);
 
-    PythonShell.run('scripts/predict.py', options).then(messages => {
+    PythonShell.run('custom_scripts/predict.py', options).then(messages => {
       console.log('Python script completed successfully');
       console.log('Messages:', messages);
       resolve(messages[0]);
@@ -97,13 +97,13 @@ ipcMain.handle('predict-webcam-age', async (event, imageBlob, sourceAge = 25, ta
         mode: 'text',
         pythonPath: '/Users/jungsublim/miniconda3/envs/face/bin/python',
         pythonOptions: ['-u'],
-        scriptPath: path.join(__dirname, 'face_reaging/'),
+        scriptPath: __dirname,
         args: [tempImagePath, sourceAge.toString(), targetAge.toString()]
       };
 
       console.log('Python execution options:', options);
 
-      PythonShell.run('scripts/predict.py', options).then(messages => {
+      PythonShell.run('custom_scripts/predict.py', options).then(messages => {
         // 임시 파일 정리
         fs.unlink(tempImagePath, (unlinkErr) => {
           if (unlinkErr) console.error('임시 파일 삭제 실패:', unlinkErr);
