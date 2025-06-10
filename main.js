@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { PythonShell } = require('python-shell');
 const fs = require('fs');
 
 // 개발 환경에서 자동 리로드 활성화
@@ -45,35 +44,52 @@ app.on('activate', () => {
   }
 });
 
-// Python 스크립트 실행을 위한 IPC 핸들러
+// Python 스크립트 직접 사용 (개발 환경)
 ipcMain.handle('predict-age', async (event, imagePath, sourceAge = 25, targetAge = 45) => {
   console.log('IPC Handler called with:', { imagePath, sourceAge, targetAge });
   
+  const { spawn } = require('child_process');
+  
   return new Promise((resolve, reject) => {
-    let options = {
-      mode: 'text',
-      pythonPath: '/Users/jungsublim/miniconda3/envs/face/bin/python',
-      pythonOptions: ['-u'],
-      scriptPath: __dirname,
-      args: [imagePath, sourceAge.toString(), targetAge.toString()]
-    };
-
-    console.log('Python execution options:', options);
-
-    PythonShell.run('custom_scripts/predict.py', options).then(messages => {
-      console.log('Python script completed successfully');
-      console.log('Messages:', messages);
-      resolve(messages[0]);
-    }).catch(err => {
-      console.error('Python script error:', err);
-      reject(err);
+    // Python 스크립트 직접 실행
+    const pythonPath = '/Users/jungsublim/miniconda3/envs/face/bin/python';
+    const scriptPath = path.join(__dirname, 'face_reaging', 'scripts', 'predict.py');
+    
+    console.log('Using Python script:', { pythonPath, scriptPath, imagePath, sourceAge, targetAge });
+    
+    const child = spawn(pythonPath, [scriptPath, imagePath, sourceAge.toString(), targetAge.toString()], {
+      cwd: path.join(__dirname, 'face_reaging')
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    child.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+    
+    child.stderr.on('data', (data) => {
+      stderr += data.toString();
+    });
+    
+    child.on('close', (code) => {
+      if (code === 0) {
+        console.log('Python script completed successfully');
+        console.log('Result:', stdout.trim());
+        resolve(stdout.trim());
+      } else {
+        console.error('Python script error:', stderr);
+        reject(new Error(stderr));
+      }
     });
   });
 });
 
-// 웹캠 이미지 처리를 위한 IPC 핸들러
+// 웹캠 이미지 처리를 위한 Python 스크립트 IPC 핸들러  
 ipcMain.handle('predict-webcam-age', async (event, imageBlob, sourceAge = 25, targetAge = 45) => {
   console.log('Webcam IPC Handler called with:', { sourceAge, targetAge });
+  
+  const { spawn } = require('child_process');
   
   return new Promise((resolve, reject) => {
     // Buffer를 임시 파일로 저장
@@ -93,32 +109,41 @@ ipcMain.handle('predict-webcam-age', async (event, imageBlob, sourceAge = 25, ta
         return;
       }
       
-      let options = {
-        mode: 'text',
-        pythonPath: '/Users/jungsublim/miniconda3/envs/face/bin/python',
-        pythonOptions: ['-u'],
-        scriptPath: __dirname,
-        args: [tempImagePath, sourceAge.toString(), targetAge.toString()]
-      };
-
-      console.log('Python execution options:', options);
-
-      PythonShell.run('custom_scripts/predict.py', options).then(messages => {
+      // Python 스크립트 직접 실행
+      const pythonPath = '/Users/jungsublim/miniconda3/envs/face/bin/python';
+      const scriptPath = path.join(__dirname, 'face_reaging', 'scripts', 'predict.py');
+      
+      console.log('Using Python script for webcam:', { pythonPath, scriptPath, tempImagePath, sourceAge, targetAge });
+      
+      const child = spawn(pythonPath, [scriptPath, tempImagePath, sourceAge.toString(), targetAge.toString()], {
+        cwd: path.join(__dirname, 'face_reaging')
+      });
+      
+      let stdout = '';
+      let stderr = '';
+      
+      child.stdout.on('data', (data) => {
+        stdout += data.toString();
+      });
+      
+      child.stderr.on('data', (data) => {
+        stderr += data.toString();
+      });
+      
+      child.on('close', (code) => {
         // 임시 파일 정리
         fs.unlink(tempImagePath, (unlinkErr) => {
           if (unlinkErr) console.error('임시 파일 삭제 실패:', unlinkErr);
         });
         
-        resolve(messages[0]);
-      }).catch(err => {
-        console.error('Python script error:', err);
-        
-        // 임시 파일 정리
-        fs.unlink(tempImagePath, (unlinkErr) => {
-          if (unlinkErr) console.error('임시 파일 삭제 실패:', unlinkErr);
-        });
-        
-        reject(err);
+        if (code === 0) {
+          console.log('Python script completed successfully for webcam');
+          console.log('Result:', stdout.trim());
+          resolve(stdout.trim());
+        } else {
+          console.error('Python script error for webcam:', stderr);
+          reject(new Error(stderr));
+        }
       });
     });
   });

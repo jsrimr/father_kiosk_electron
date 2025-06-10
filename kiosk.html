@@ -72,6 +72,14 @@
             <div class="main-container">
                 <div class="camera-section">
                     <h2 id="mainTitle">얼굴을 촬영해주세요</h2>
+                    
+                    <!-- 나이 입력 섹션 -->
+                    <div class="age-input-section">
+                        <label for="ageInput" id="ageLabel">현재 나이를 입력해주세요:</label>
+                        <input type="number" id="ageInput" min="10" max="80" value="25" placeholder="25">
+                        <span id="ageHint">20년 후 모습을 예측합니다</span>
+                    </div>
+                    
                     <div class="camera-wrapper" id="cameraWrapper" style="display: none;">
                         <video id="video" autoplay playsinline></video>
                         <div class="face-guide">
@@ -122,11 +130,11 @@
                         <div class="face-images">
                             <div class="face-image">
                                 <img id="currentFace" src="" alt="현재 모습">
-                                <h3>현재</h3>
+                                <h3 id="currentAgeLabel">현재</h3>
                             </div>
                             <div class="face-image">
                                 <img id="futureFace" src="" alt="20년 후 모습">
-                                <h3>20년 후</h3>
+                                <h3 id="futureAgeLabel">20년 후</h3>
                             </div>
                         </div>
                     </div>

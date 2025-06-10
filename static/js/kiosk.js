@@ -9,6 +9,7 @@ let ctx = null;
 let tmModel = null;
 let currentResults = null; // 현재 분석 결과 저장
 let mbtiDatabase = null; // MBTI 데이터베이스
+let currentAge = 25; // 현재 사용자 나이
 let satisfactionRatings = {
     mbti: 0,
     face: 0,
@@ -25,8 +26,13 @@ const texts = {
         cashPayBtn: '현금 결제',
         paymentStatus: '결제 처리 중...',
         mainTitle: '얼굴을 촬영해주세요',
+        ageLabel: '현재 나이를 입력해주세요:',
+        ageHint: '20년 후 모습을 예측합니다',
         guideText: '얼굴을 가이드 안에 맞춰주세요',
         analysisStatus: 'AI 분석 중...',
+        mbtiAnalyzing: 'MBTI 분석 중...',
+        faceAnalyzing: '얼굴 변화 예측 중...',
+        analyzing: '분석 중...',
         resultTitle: '분석 결과',
         mbtiSectionTitle: '당신의 MBTI',
         partnerSectionTitle: '추천 배우자',
@@ -36,7 +42,9 @@ const texts = {
         faceSurveyTitle: '얼굴 예측 결과에 대한 만족도',
         overallSurveyTitle: '전체 서비스 만족도',
         ratePrompt: '평가해주세요',
-        ratingLabels: ['매우 불만족', '불만족', '보통', '만족', '매우 만족']
+        ratingLabels: ['매우 불만족', '불만족', '보통', '만족', '매우 만족'],
+        currentLabel: '현재',
+        futureLabel: '20년 후'
     },
     en: {
         paymentTitle: 'Please proceed with payment',
@@ -45,8 +53,13 @@ const texts = {
         cashPayBtn: 'Cash Payment',
         paymentStatus: 'Processing payment...',
         mainTitle: 'Please take a photo of your face',
+        ageLabel: 'Please enter your current age:',
+        ageHint: 'We will predict your appearance in 20 years',
         guideText: 'Align your face within the guide',
         analysisStatus: 'AI Analysis in progress...',
+        mbtiAnalyzing: 'Analyzing MBTI...',
+        faceAnalyzing: 'Predicting face changes...',
+        analyzing: 'Analyzing...',
         resultTitle: 'Analysis Results',
         mbtiSectionTitle: 'Your MBTI',
         partnerSectionTitle: 'Recommended Partner',
@@ -56,7 +69,9 @@ const texts = {
         faceSurveyTitle: 'Face Prediction Satisfaction',
         overallSurveyTitle: 'Overall Service Satisfaction',
         ratePrompt: 'Please rate',
-        ratingLabels: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied']
+        ratingLabels: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied'],
+        currentLabel: 'Current',
+        futureLabel: 'In 20 years'
     },
     ja: {
         paymentTitle: 'お支払いを進めてください',
@@ -65,8 +80,13 @@ const texts = {
         cashPayBtn: '現金決済',
         paymentStatus: '決済処理中...',
         mainTitle: '顔写真を撮影してください',
+        ageLabel: '現在の年齢を入力してください:',
+        ageHint: '20年後の姿を予測します',
         guideText: 'ガイド内に顔を合わせてください',
         analysisStatus: 'AI分析中...',
+        mbtiAnalyzing: 'MBTI分析中...',
+        faceAnalyzing: '顔変化予測中...',
+        analyzing: '分析中...',
         resultTitle: '分析結果',
         mbtiSectionTitle: 'あなたのMBTI',
         partnerSectionTitle: '推奨パートナー',
@@ -76,7 +96,9 @@ const texts = {
         faceSurveyTitle: '顔予測結果の満足度',
         overallSurveyTitle: '全体的なサービス満足度',
         ratePrompt: '評価してください',
-        ratingLabels: ['非常に不満', '不満', '普通', '満足', '非常に満足']
+        ratingLabels: ['非常に不満', '不満', '普通', '満足', '非常に満足'],
+        currentLabel: '現在',
+        futureLabel: '20年後'
     },
     zh: {
         paymentTitle: '请进行付款',
@@ -85,8 +107,13 @@ const texts = {
         cashPayBtn: '现金支付',
         paymentStatus: '支付处理中...',
         mainTitle: '请拍摄您的面部照片',
+        ageLabel: '请输入您的当前年龄:',
+        ageHint: '我们将预测您20年后的样子',
         guideText: '请将面部对准指导框',
         analysisStatus: 'AI分析中...',
+        mbtiAnalyzing: 'MBTI分析中...',
+        faceAnalyzing: '面部变化预测中...',
+        analyzing: '分析中...',
         resultTitle: '分析结果',
         mbtiSectionTitle: '您的MBTI',
         partnerSectionTitle: '推荐伴侣',
@@ -96,7 +123,9 @@ const texts = {
         faceSurveyTitle: '面部预测结果满意度',
         overallSurveyTitle: '整体服务满意度',
         ratePrompt: '请评价',
-        ratingLabels: ['非常不满意', '不满意', '一般', '满意', '非常满意']
+        ratingLabels: ['非常不满意', '不满意', '一般', '满意', '非常满意'],
+        currentLabel: '现在',
+        futureLabel: '20年后'
     },
     vi: {
         paymentTitle: 'Vui lòng tiến hành thanh toán',
@@ -105,8 +134,13 @@ const texts = {
         cashPayBtn: 'Thanh toán tiền mặt',
         paymentStatus: 'Đang xử lý thanh toán...',
         mainTitle: 'Vui lòng chụp ảnh khuôn mặt',
+        ageLabel: 'Vui lòng nhập tuổi hiện tại của bạn:',
+        ageHint: 'Chúng tôi sẽ dự đoán diện mạo của bạn sau 20 năm',
         guideText: 'Căn chỉnh khuôn mặt trong khung hướng dẫn',
         analysisStatus: 'Đang phân tích AI...',
+        mbtiAnalyzing: 'Đang phân tích MBTI...',
+        faceAnalyzing: 'Đang dự đoán thay đổi khuôn mặt...',
+        analyzing: 'Đang phân tích...',
         resultTitle: 'Kết quả phân tích',
         mbtiSectionTitle: 'MBTI của bạn',
         partnerSectionTitle: 'Đối tác được đề xuất',
@@ -116,7 +150,9 @@ const texts = {
         faceSurveyTitle: 'Độ hài lòng về kết quả dự đoán khuôn mặt',
         overallSurveyTitle: 'Độ hài lòng tổng thể về dịch vụ',
         ratePrompt: 'Vui lòng đánh giá',
-        ratingLabels: ['Rất không hài lòng', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Rất hài lòng']
+        ratingLabels: ['Rất không hài lòng', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Rất hài lòng'],
+        currentLabel: 'Hiện tại',
+        futureLabel: 'Sau 20 năm'
     }
 };
 
@@ -147,6 +183,8 @@ function updateTexts() {
     document.getElementById('cashPayBtn').textContent = text.cashPayBtn;
     document.getElementById('paymentStatus').textContent = text.paymentStatus;
     document.getElementById('mainTitle').textContent = text.mainTitle;
+    document.getElementById('ageLabel').textContent = text.ageLabel;
+    document.getElementById('ageHint').textContent = text.ageHint;
     document.getElementById('guideText').textContent = text.guideText;
     document.getElementById('analysisStatus').textContent = text.analysisStatus;
     document.getElementById('resultTitle').textContent = text.resultTitle;
@@ -215,7 +253,8 @@ function processPayment(method) {
 // Teachable Machine 모델 로드
 async function loadTMModel() {
     try {
-        const TM_URL = "https://teachablemachine.withgoogle.com/models/sW-qqwyNh/";
+        // const TM_URL = "https://teachablemachine.withgoogle.com/models/sW-qqwyNh/";
+        const TM_URL = "https://teachablemachine.withgoogle.com/models/LvTUHcc9_/";
         tmModel = await tmImage.load(TM_URL + "model.json", TM_URL + "metadata.json");
         console.log('MBTI 모델 로드 완료');
     } catch (error) {
@@ -288,7 +327,20 @@ async function captureAndAnalyze() {
         return;
     }
     
-    document.getElementById('analysisProgress').style.display = 'block';
+    // 현재 언어 텍스트 가져오기
+    const text = texts[currentLanguage];
+    
+    // 캡처 버튼 비활성화
+    const captureBtn = document.getElementById('captureBtn');
+    captureBtn.disabled = true;
+    captureBtn.textContent = text.analyzing;
+    
+    // 로딩 애니메이션 표시
+    const analysisProgress = document.getElementById('analysisProgress');
+    analysisProgress.style.display = 'block';
+    
+    // 스크롤을 로딩 애니메이션으로 이동
+    analysisProgress.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
     // 이미지 캡처
     const imageDataUrl = captureImage();
@@ -297,10 +349,12 @@ async function captureAndAnalyze() {
         // MBTI 분석
         let mbtiResult = null;
         if (tmModel) {
+            document.getElementById('analysisStatus').textContent = text.mbtiAnalyzing;
             mbtiResult = await analyzeMBTI(imageDataUrl);
         }
         
         // 얼굴 aging 분석
+        document.getElementById('analysisStatus').textContent = text.faceAnalyzing;
         const faceResult = await analyzeFaceAging(imageDataUrl);
         
         // 결과 표시
@@ -309,7 +363,11 @@ async function captureAndAnalyze() {
     } catch (error) {
         console.error('분석 실패:', error);
         alert('분석 중 오류가 발생했습니다.');
-        document.getElementById('analysisProgress').style.display = 'none';
+        analysisProgress.style.display = 'none';
+        
+        // 버튼 복구
+        captureBtn.disabled = false;
+        captureBtn.textContent = '사진 촬영 및 분석';
     }
 }
 
@@ -368,6 +426,13 @@ async function analyzeMBTI(imageDataUrl) {
 
 async function analyzeFaceAging(imageDataUrl) {
     try {
+        // 사용자 입력 나이 가져오기
+        const ageInput = document.getElementById('ageInput');
+        currentAge = parseInt(ageInput.value) || 25;
+        const targetAge = currentAge + 20;
+        
+        console.log(`나이 변화 예측: ${currentAge}세 → ${targetAge}세`);
+        
         const base64Data = imageDataUrl.split(',')[1];
         const binaryString = atob(base64Data);
         const bytes = new Uint8Array(binaryString.length);
@@ -375,7 +440,7 @@ async function analyzeFaceAging(imageDataUrl) {
             bytes[i] = binaryString.charCodeAt(i);
         }
         
-        const result = await ipcRenderer.invoke('predict-webcam-age', bytes, 25, 45);
+        const result = await ipcRenderer.invoke('predict-webcam-age', bytes, currentAge, targetAge);
         return result;
     } catch (error) {
         console.error('얼굴 aging 분석 실패:', error);
@@ -445,6 +510,12 @@ function displayResults(mbtiResult, faceResult, originalImage) {
     if (faceResult) {
         document.getElementById('futureFace').src = faceResult;
     }
+    
+    // 나이 라벨 업데이트
+    const text = texts[currentLanguage];
+    const targetAge = currentAge + 20;
+    document.getElementById('currentAgeLabel').textContent = `${text.currentLabel} (${currentAge}세)`;
+    document.getElementById('futureAgeLabel').textContent = `${text.futureLabel} (${targetAge}세)`;
     
     stopCamera();
     showScreen('resultScreen');
@@ -532,6 +603,7 @@ function startOver() {
     
     // 결과 데이터 초기화
     currentResults = null;
+    currentAge = 25; // 나이 초기화
     satisfactionRatings = {
         mbti: 0,
         face: 0,
@@ -540,6 +612,9 @@ function startOver() {
     
     // 언어를 기본값으로 초기화
     currentLanguage = 'ko';
+    
+    // 나이 입력 필드 초기화
+    document.getElementById('ageInput').value = 25;
     
     // 모든 진행 상태 숨기기
     document.getElementById('paymentProgress').style.display = 'none';

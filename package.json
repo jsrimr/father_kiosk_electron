@@ -6,15 +6,72 @@
   "scripts": {
     "start": "electron .",
     "dev": "NODE_ENV=development electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder",
+    "build-mac": "electron-builder --mac",
+    "build-win": "electron-builder --win",
+    "build-linux": "electron-builder --linux",
+    "pack": "electron-builder --dir",
+    "dist": "npm run build"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^28.1.0",
-    "python-shell": "^5.0.0"
-  },
   "devDependencies": {
-    "electron-reload": "^2.0.0"
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "electron-reload": "^1.5.0"
+  },
+  "build": {
+    "appId": "com.father-kiosk.electron",
+    "productName": "Father Kiosk",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "kiosk.html",
+      "static/**/*",
+      "face_reaging/**/*",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "face_reaging",
+        "to": "face_reaging"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
   }
-} 
+}
